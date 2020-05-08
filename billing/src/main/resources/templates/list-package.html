@@ -1,0 +1,43 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>CAT Package</title>
+</head>
+<body>
+<h3>CAT Internet Package</h3><br>
+
+<form action="#" th:action="@{/secure/filterPackage}" th:object="${filter}" method="post">
+    <p>Search Data : </p>
+    Package Id : <input type="number" name="package_id">
+    Package : <input type="text" name="package_name">
+    Amount : <input type="number" name="amount">
+    Date : <input type="text" name="create_date">
+    <input type="submit" value="Search Package">
+</form>
+<br>
+
+<table>
+    <thead>
+        <tr>
+            <th>Package Id</th>
+            <th>Package</th>
+            <th>Amount</th>
+            <th>Created Date</th>
+        </tr>
+    </thead>
+    <tr align="center" th:each="package : ${packages}">
+        <td th:text="${package.package_id}"></td>
+        <td th:text="${package.package_name}"></td>
+        <td th:text="${package.amount}"></td>
+        <td th:text="${package.create_date}"></td>
+        <td><a th:href="@{/secure/deletePackage/{id}(id=${package.package_id})}">Delete Package</a></td>
+    </tr>
+</table>
+
+<p><a href="/secure/package">Add New Package</a></p><br>
+
+Logged in user: <b th:inline="text"> [[${#httpServletRequest.remoteUser}]] </b>
+<form th:action="@{/appLogout}" method="post">
+    <input type="submit" value="Logout"/>
+</form>
+</body>
+</html>
